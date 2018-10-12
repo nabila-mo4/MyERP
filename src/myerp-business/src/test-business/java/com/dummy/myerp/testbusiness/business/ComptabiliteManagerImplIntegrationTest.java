@@ -43,7 +43,7 @@ public class ComptabiliteManagerImplIntegrationTest extends BusinessTestCase {
 	        manager.addReference(vEcritureComptable);
 	        String digit = "AC-2016/00042".substring(8);
 	        int val= Integer.parseInt(digit)+1;
-	        String dynreference = "AC-2016/"+String.valueOf(val);
+	        String dynreference = "AC-2016/"+String.format("%05d", val);
 	        assertEquals(dynreference, vEcritureComptable.getReference());
 	    }
 	 
