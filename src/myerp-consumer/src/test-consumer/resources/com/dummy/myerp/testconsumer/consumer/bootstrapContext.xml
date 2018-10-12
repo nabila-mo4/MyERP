@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--  include appplication context business,
+ include applkication context consumer
+ include fichier databaseset -->
+ 
+ <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+    
+    
+      <!--  <import resource="classpath:/com/dummy/myerp/business/applicationContext.xml" />-->
+      <import resource="classpath:/com/dummy/myerp/consumer/applicationContext.xml" />
+      <import resource="classpath:/com/dummy/myerp/testconsumer/consumer/databasec.xml" />  
+      
+      
+           
+</beans>
