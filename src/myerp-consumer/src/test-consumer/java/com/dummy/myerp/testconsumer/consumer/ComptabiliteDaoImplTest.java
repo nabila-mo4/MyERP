@@ -224,7 +224,7 @@ public class ComptabiliteDaoImplTest extends ConsumerTestCase {
 	@Test
 	public void getDerniereSequene(){
 		
-		Assert.assertEquals("51",getDaoProxy().getComptabiliteDao().getDerniereSequence(2016, "BQ"));
+		Assert.assertEquals(new Integer(51),getDaoProxy().getComptabiliteDao().getDerniereSequence(2016, "BQ"));
 		
 	}
 	
@@ -244,10 +244,10 @@ public class ComptabiliteDaoImplTest extends ConsumerTestCase {
 	public void updateSequenceEcritureComptable() throws NotFoundException {
 		SequenceEcritureComptable seq= new SequenceEcritureComptable();
 		seq.setAnnee(2017);
-		seq.setDerniereValeur(new Integer(41));
+		seq.setDerniereValeur(new Integer(90));
 		EcritureComptable e= getDaoProxy().getComptabiliteDao().getEcritureComptable(new Integer(-2));
 		String codej= e.getJournal().getCode();
-		dao.updateSequenceEcritureComptable(seq, codej);
+		dao.updateSequenceEcritureComptable(seq, "OD");
 		Assert.assertTrue(new Integer(41).equals(getDaoProxy().getComptabiliteDao().getDerniereSequence(2017, "VE")));
 	}
 }
