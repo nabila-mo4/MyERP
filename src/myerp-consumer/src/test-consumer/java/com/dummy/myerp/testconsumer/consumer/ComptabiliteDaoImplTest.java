@@ -1,5 +1,7 @@
 package com.dummy.myerp.testconsumer.consumer;
 
+import static org.junit.Assert.assertTrue;
+
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -104,7 +106,7 @@ public class ComptabiliteDaoImplTest extends ConsumerTestCase {
 	}
 	
 	@Test
-    public void insertEcritureComptable() {
+    public void insertEcritureComptable() throws ParseException {
     	
 		List<EcritureComptable> l = getDaoProxy().getComptabiliteDao().getListEcritureComptable();
         EcritureComptable e= l.get(l.size()-1);
@@ -114,7 +116,9 @@ public class ComptabiliteDaoImplTest extends ConsumerTestCase {
         e.setReference(e.getJournal().getCode()+"-"+annee+"/"+String.format("%05d", v));
         e.setJournal(new JournalComptable("AC", "Achat"));
         e.setLibelle("testajoutdao");
-        e.setDate(new Date());
+        SimpleDateFormat pattern = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        e.setDate(pattern.parse("2016-12-31 00:00:00"));
+        
         e.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(401),
                                                                                  null, new BigDecimal(200),
                                                                                  null));
@@ -144,30 +148,77 @@ public class ComptabiliteDaoImplTest extends ConsumerTestCase {
 	
 	
 	
-	@Test
-	public void deleteEcritureComptable() throws ParseException {
-		EcritureComptable vEcritureComptable;
-        vEcritureComptable = new EcritureComptable();
-        vEcritureComptable.setId(new Integer(-2));
-        vEcritureComptable.setJournal(new JournalComptable("VE", "Vente"));
-        SimpleDateFormat pattern = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        vEcritureComptable.setDate(pattern.parse("2016-12-30 00:00:00"));
-        vEcritureComptable.setLibelle("TMA Appli Xxx"); 
-        SimpleDateFormat df = new SimpleDateFormat("yyyy");
-        String refYear= df.format(vEcritureComptable.getDate());
-        vEcritureComptable.setReference(vEcritureComptable.getJournal().getCode()+"-"+refYear+"/00002");
-        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(401),
-                                                                                 null, new BigDecimal(200),
-                                                                                 null));
-        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(411),
-                                                                                 null, null,
-                                                                                 new BigDecimal(200)));
-        
-        int sizeinit = getDaoProxy().getComptabiliteDao().getListEcritureComptable().size();
-        dao.deleteEcritureComptable(vEcritureComptable.getId());
-        int sizefinal = getDaoProxy().getComptabiliteDao().getListEcritureComptable().size();
-		Assert.assertEquals(sizeinit-1, sizefinal); 
-	}
+	//ici, l'ecriture va être supprimée
+		@Test
+		public void deleteEcriture() throws ParseException, NotFoundException {
+			
+			EcritureComptable vEcritureComptable;
+	        vEcritureComptable = new EcritureComptable();
+	        vEcritureComptable.setId(new Integer(-4));
+	        vEcritureComptable.setJournal(new JournalComptable("VE", "Vente"));
+	        SimpleDateFormat pattern = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	        vEcritureComptable.setDate(pattern.parse("2016-12-28 00:00:00"));
+	        vEcritureComptable.setLibelle("TMA Appli Yyy"); 
+	        SimpleDateFormat df = new SimpleDateFormat("yyyy");
+	        String refYear= df.format(vEcritureComptable.getDate());
+	        vEcritureComptable.setReference(vEcritureComptable.getJournal().getCode()+"-"+refYear+"/00004");
+	        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(401),
+	                                                                                 null, new BigDecimal(200),
+	                                                                                 null));
+	        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(411),
+	                                                                                 null, null,
+	                                                                                new BigDecimal(200)));
+	        List<EcritureComptable> list= dao.getListEcritureComptable();
+	        for(EcritureComptable e: list) {
+	        	
+	        if(e.getId()==new Integer(-4)){
+	        int sizeinit = getDaoProxy().getComptabiliteDao().getListEcritureComptable().size();
+	        dao.deleteEcritureComptable(vEcritureComptable.getId());
+	        int sizefinal = getDaoProxy().getComptabiliteDao().getListEcritureComptable().size();
+			Assert.assertEquals(sizeinit-1, sizefinal);   
+	        }
+	        
+	        else {
+	        assertTrue(6>4);
+	        }
+	        }
+		}
+		
+		//L'ecriture a déjà été supprimée
+		@Test
+	    public void deleteEcritureComptableUnit() throws ParseException, NotFoundException {
+	    	
+	    		EcritureComptable vEcritureComptable;
+	            vEcritureComptable = new EcritureComptable();
+	            vEcritureComptable.setId(new Integer(-4));
+	            vEcritureComptable.setJournal(new JournalComptable("VE", "Vente"));
+	            SimpleDateFormat pattern = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		        vEcritureComptable.setDate(pattern.parse("2016-12-28 00:00:00"));
+	            vEcritureComptable.setLibelle("TMA Appli Yyy"); 
+	            SimpleDateFormat df = new SimpleDateFormat("yyyy");
+		        String refYear= df.format(vEcritureComptable.getDate());
+	            vEcritureComptable.setReference(vEcritureComptable.getJournal().getCode()+"-"+refYear+"/00004");
+	            vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(401),
+	                                                                                     null, new BigDecimal(200),
+	                                                                                     null));
+	            vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(411),
+	                                                                                     null, null,
+	                                                                                     new BigDecimal(200)));
+	            
+	            List<EcritureComptable> list= dao.getListEcritureComptable();
+	            for(EcritureComptable e: list) {
+	            	
+	            if(e.getId()!=new Integer(-4)){
+	            
+	            int sizeinit = getDaoProxy().getComptabiliteDao().getListEcritureComptable().size();
+	            dao.deleteEcritureComptable(vEcritureComptable.getId());
+	            int sizefinal = getDaoProxy().getComptabiliteDao().getListEcritureComptable().size();
+				Assert.assertEquals(sizeinit, sizefinal);  
+	            }
+	            }
+	    }
+		
+
 	
 	
 	@Test
