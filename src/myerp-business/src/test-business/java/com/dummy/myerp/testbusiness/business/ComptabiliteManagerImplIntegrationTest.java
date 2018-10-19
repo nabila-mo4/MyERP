@@ -105,7 +105,9 @@ public class ComptabiliteManagerImplIntegrationTest extends BusinessTestCase {
 		        e.setReference(e.getJournal().getCode()+"-"+annee+"/"+String.format("%05d", v));
 		        e.setJournal(new JournalComptable("AC", "Achat"));
 	            e.setLibelle("testajout");
-	            e.setDate(new Date());
+	            SimpleDateFormat pattern = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	            e.setDate(pattern.parse("2016-12-31 00:00:00"));
+	      
 	            e.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(401),
 	                                                                                     null, new BigDecimal(200),
 	                                                                                     null));
