@@ -276,4 +276,19 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
 			getTransactionManager().rollbackMyERP(vTS);
 		}
 	}
+	
+	//nouvelle méthode que j'ai créé 
+	public EcritureComptable getEcriture(Integer pId) throws NotFoundException {
+		TransactionStatus vTS = getTransactionManager().beginTransactionMyERP();
+		EcritureComptable e;
+		try {
+			e= getDaoProxy().getComptabiliteDao().getEcritureComptable(pId);
+			
+			getTransactionManager().commitMyERP(vTS);
+			vTS = null;
+		} finally {
+			getTransactionManager().rollbackMyERP(vTS);
+		}
+		return e;
+	}
 }

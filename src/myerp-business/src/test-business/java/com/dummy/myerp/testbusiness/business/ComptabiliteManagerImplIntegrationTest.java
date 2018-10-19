@@ -40,7 +40,10 @@ public class ComptabiliteManagerImplIntegrationTest extends BusinessTestCase {
 	        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(401),
 	        																		 "Facture F110001", null,
 	        																		 new BigDecimal(100)));
-	        String digit = vEcritureComptable.getReference().substring(8);
+	        //String digit = vEcritureComptable.getReference().substring(8);
+	        
+	        EcritureComptable ecr= manager.getEcriture(-1);
+	        String digit = ecr.getReference().substring(8);
 	        int val= Integer.parseInt(digit)+1;
 	        manager.addReference(vEcritureComptable);
 	        //String digit = "AC-2016/00043".substring(8);
