@@ -22,7 +22,7 @@ public class ComptabiliteManagerImplTest {
 
     private ComptabiliteManagerImpl manager = new ComptabiliteManagerImpl();
     
-   /*@Test
+   @Test
     public void checkEcritureComptableUnit() throws Exception {
         EcritureComptable vEcritureComptable;
         vEcritureComptable = new EcritureComptable();
@@ -138,7 +138,7 @@ vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new Com
        
         manager.checkEcritureComptableUnit(vEcritureComptable);
     
-	}*/
+	}
 	}
 
 

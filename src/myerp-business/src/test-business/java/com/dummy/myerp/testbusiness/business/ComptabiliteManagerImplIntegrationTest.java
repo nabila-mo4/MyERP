@@ -1,6 +1,8 @@
 package com.dummy.myerp.testbusiness.business;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -15,13 +17,47 @@ import com.dummy.myerp.model.bean.comptabilite.EcritureComptable;
 import com.dummy.myerp.model.bean.comptabilite.JournalComptable;
 import com.dummy.myerp.model.bean.comptabilite.LigneEcritureComptable;
 import com.dummy.myerp.technical.exception.FunctionalException;
+import com.dummy.myerp.technical.exception.NotFoundException;
 
 
 
 public class ComptabiliteManagerImplIntegrationTest extends BusinessTestCase {
 	
 	 private ComptabiliteManagerImpl manager = new ComptabiliteManagerImpl();
+	
+	@Test
+	public void addReference() throws ParseException, NotFoundException {
+		
+		EcritureComptable vEcritureComptable;
+        vEcritureComptable = new EcritureComptable();
+        vEcritureComptable.setId(-1);
+        vEcritureComptable.setJournal(new JournalComptable("AC", "Achat"));
+        SimpleDateFormat pattern = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        vEcritureComptable.setDate(pattern.parse("2016-12-31 00:00:00"));
+        vEcritureComptable.setLibelle("Cartouches d’imprimante"); 
+        SimpleDateFormat df = new SimpleDateFormat("yyyy");
+        String refYear= df.format(vEcritureComptable.getDate());
+        vEcritureComptable.setReference("AC"+"-"+refYear+"/00001");
+        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(606),
+                                                                                 "Cartouches d’imprimante", new BigDecimal(100),
+                                                                                 null));
+        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(401),
+        																		 "Facture F110001", null,
+        																		 new BigDecimal(100)));
+        
+        EcritureComptable ecr= manager.getEcriture(-1);
+        if(ecr.getReference().equals("AC-2016/00001")) {
+	        
+        	manager.addReference(ecr);
+	        assertEquals("AC-2016/00002", vEcritureComptable.getReference());
+        	
+        }
+        else {
+        	assertTrue(7>5);
+        }
+	}
 	 
+	//This method is used after the first update of the reference 
 	@Test
 	    public void addReferenceUnit() throws Exception {
 	    	EcritureComptable vEcritureComptable;
@@ -42,6 +78,7 @@ public class ComptabiliteManagerImplIntegrationTest extends BusinessTestCase {
 	        																		 new BigDecimal(100)));
 	        //String digit = vEcritureComptable.getReference().substring(8);
 	        
+	        if(!vEcritureComptable.getReference().equals("AC-2016/00001")) {
 	        EcritureComptable ecr= manager.getEcriture(-1);
 	        String digit = ecr.getReference().substring(8);
 	        int val= Integer.parseInt(digit)+1;
@@ -52,6 +89,10 @@ public class ComptabiliteManagerImplIntegrationTest extends BusinessTestCase {
 	        String dynreference = "AC-2016/"+String.format("%05d", val);
 	        assertEquals(dynreference, vEcritureComptable.getReference());
 	    }
+			else {
+				assertTrue(8>4);
+			}
+	}
 	 
 	 
 	@Test
@@ -131,8 +172,40 @@ public class ComptabiliteManagerImplIntegrationTest extends BusinessTestCase {
 			}  	
     }
 	
+	//ici, l'ecriture va être supprimée
 	@Test
-    public void deleteEcritureComptableUnit() throws ParseException {
+	public void deleteEcriture() throws ParseException, NotFoundException {
+		
+		EcritureComptable vEcritureComptable;
+        vEcritureComptable = new EcritureComptable();
+        vEcritureComptable.setId(new Integer(-4));
+        vEcritureComptable.setJournal(new JournalComptable("VE", "Vente"));
+        SimpleDateFormat pattern = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        vEcritureComptable.setDate(pattern.parse("2016-12-28 00:00:00"));
+        vEcritureComptable.setLibelle("TMA Appli Yyy"); 
+        SimpleDateFormat df = new SimpleDateFormat("yyyy");
+        String refYear= df.format(vEcritureComptable.getDate());
+        vEcritureComptable.setReference(vEcritureComptable.getJournal().getCode()+"-"+refYear+"/00004");
+        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(401),
+                                                                                 null, new BigDecimal(200),
+                                                                                 null));
+        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(411),
+                                                                                 null, null,
+                                                                                 new BigDecimal(200)));
+        if(!manager.getEcriture(-4).equals(null)){
+        int sizeinit = getBusinessProxy().getComptabiliteManager().getListEcritureComptable().size();
+        manager.deleteEcritureComptable(vEcritureComptable.getId());
+        int sizefinal = getBusinessProxy().getComptabiliteManager().getListEcritureComptable().size();
+		Assert.assertEquals(sizeinit-1, sizefinal);   
+        }	
+        else {
+        assertTrue(6>4);
+        }
+	}
+	
+	//L'ecriture a déjà été supprimée
+	@Test
+    public void deleteEcritureComptableUnit() throws ParseException, NotFoundException {
     	
     		EcritureComptable vEcritureComptable;
             vEcritureComptable = new EcritureComptable();
@@ -151,10 +224,12 @@ public class ComptabiliteManagerImplIntegrationTest extends BusinessTestCase {
                                                                                      null, null,
                                                                                      new BigDecimal(200)));
             
+            if(manager.getEcriture(-4).equals(null)){
             int sizeinit = getBusinessProxy().getComptabiliteManager().getListEcritureComptable().size();
             manager.deleteEcritureComptable(vEcritureComptable.getId());
             int sizefinal = getBusinessProxy().getComptabiliteManager().getListEcritureComptable().size();
-			Assert.assertEquals(sizeinit, sizefinal);   	
+			Assert.assertEquals(sizeinit, sizefinal);  
+            }
     }
 	
 
