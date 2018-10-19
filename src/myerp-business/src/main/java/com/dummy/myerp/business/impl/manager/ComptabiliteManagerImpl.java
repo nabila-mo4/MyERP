@@ -59,6 +59,10 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
 	 */
 	// TODO à tester
 	// test integration
+	
+	
+	
+	
 	@Override
 	public synchronized void addReference(EcritureComptable pEcritureComptable) {
 		// TODO à implémenter
