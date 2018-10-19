@@ -95,7 +95,7 @@ public class ComptabiliteManagerImplIntegrationTest extends BusinessTestCase {
 	    }
 	
 	@Test
-    public void updateEcritureComptableUnit() {
+    public void updateEcritureComptableUnit() throws ParseException {
     	
     		EcritureComptable vEcritureComptable;
             vEcritureComptable = new EcritureComptable();
@@ -104,6 +104,8 @@ public class ComptabiliteManagerImplIntegrationTest extends BusinessTestCase {
             vEcritureComptable.setLibelle("Libellee");
             int refYear= LocalDate.of(2016, 12, 27).getYear();
             vEcritureComptable.setReference(vEcritureComptable.getJournal().getCode()+"-"+refYear+"/00005");
+            SimpleDateFormat pattern = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	        vEcritureComptable.setDate(pattern.parse("2016-12-27 00:00:00"));
             vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(401),
                                                                                      null, new BigDecimal(200),
                                                                                      null));
