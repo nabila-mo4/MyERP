@@ -152,7 +152,7 @@ public class ComptabiliteManagerImplIntegrationTest extends BusinessTestCase {
             int sizeinit = getBusinessProxy().getComptabiliteManager().getListEcritureComptable().size();
             manager.deleteEcritureComptable(vEcritureComptable.getId());
             int sizefinal = getBusinessProxy().getComptabiliteManager().getListEcritureComptable().size();
-			Assert.assertEquals(sizeinit-1, sizefinal);   	
+			Assert.assertEquals(sizeinit, sizefinal);   	
     }
 	
 
