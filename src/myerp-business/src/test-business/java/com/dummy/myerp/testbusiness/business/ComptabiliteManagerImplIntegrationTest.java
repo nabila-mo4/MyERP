@@ -30,7 +30,7 @@ public class ComptabiliteManagerImplIntegrationTest extends BusinessTestCase {
 	        vEcritureComptable.setJournal(new JournalComptable("AC", "Achat"));
 	        SimpleDateFormat pattern = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	        vEcritureComptable.setDate(pattern.parse("2016-12-31 00:00:00"));
-	        vEcritureComptable.setLibelle("Cartouches d’imprimante");
+	        vEcritureComptable.setLibelle("Cartouches d’imprimante"); 
 	        SimpleDateFormat df = new SimpleDateFormat("yyyy");
 	        String refYear= df.format(vEcritureComptable.getDate());
 	        vEcritureComptable.setReference("AC"+"-"+refYear+"/00001");
@@ -40,9 +40,12 @@ public class ComptabiliteManagerImplIntegrationTest extends BusinessTestCase {
 	        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(401),
 	        																		 "Facture F110001", null,
 	        																		 new BigDecimal(100)));
-	        manager.addReference(vEcritureComptable);
-	        String digit = "AC-2016/00042".substring(8);
+	        String digit = vEcritureComptable.getReference().substring(8);
 	        int val= Integer.parseInt(digit)+1;
+	        manager.addReference(vEcritureComptable);
+	        //String digit = "AC-2016/00043".substring(8);
+	        
+	        
 	        String dynreference = "AC-2016/"+String.format("%05d", val);
 	        assertEquals(dynreference, vEcritureComptable.getReference());
 	    }
