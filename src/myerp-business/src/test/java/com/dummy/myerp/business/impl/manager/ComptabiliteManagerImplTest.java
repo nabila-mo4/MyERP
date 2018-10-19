@@ -52,7 +52,7 @@ public class ComptabiliteManagerImplTest {
         manager.checkEcritureComptableUnit(vEcritureComptable);
     }
 
-    @Test(expected = FunctionalException.class)
+    @Test
     public void checkEcritureComptableUnitRG2() throws FunctionalException, ParseException  {
         EcritureComptable vEcritureComptable;
         vEcritureComptable = new EcritureComptable();

@@ -194,15 +194,20 @@ public class ComptabiliteManagerImplIntegrationTest extends BusinessTestCase {
                                                                                  null));
         vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(411),
                                                                                  null, null,
-                                                                                 new BigDecimal(200)));
-        if(!manager.getEcriture(-4).equals(null)){
+                                                                                new BigDecimal(200)));
+        List<EcritureComptable> list= manager.getListEcritureComptable();
+        for(EcritureComptable e: list) {
+        	
+        if(e.getId()==new Integer(-4)){
         int sizeinit = getBusinessProxy().getComptabiliteManager().getListEcritureComptable().size();
         manager.deleteEcritureComptable(vEcritureComptable.getId());
         int sizefinal = getBusinessProxy().getComptabiliteManager().getListEcritureComptable().size();
 		Assert.assertEquals(sizeinit-1, sizefinal);   
-        }	
+        }
+        
         else {
         assertTrue(6>4);
+        }
         }
 	}
 	
@@ -227,11 +232,16 @@ public class ComptabiliteManagerImplIntegrationTest extends BusinessTestCase {
                                                                                      null, null,
                                                                                      new BigDecimal(200)));
             
-            if(manager.getEcriture(-4).equals(null)){
+            List<EcritureComptable> list= manager.getListEcritureComptable();
+            for(EcritureComptable e: list) {
+            	
+            if(e.getId()!=new Integer(-4)){
+            
             int sizeinit = getBusinessProxy().getComptabiliteManager().getListEcritureComptable().size();
             manager.deleteEcritureComptable(vEcritureComptable.getId());
             int sizefinal = getBusinessProxy().getComptabiliteManager().getListEcritureComptable().size();
 			Assert.assertEquals(sizeinit, sizefinal);  
+            }
             }
     }
 	
