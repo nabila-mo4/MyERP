@@ -232,23 +232,23 @@ public class ComptabiliteDaoImplTest extends ConsumerTestCase {
 	@Test
 	public void insertSequenceEcritureComptable() throws NotFoundException {
 		SequenceEcritureComptable seq= new SequenceEcritureComptable();
+		
 		seq.setAnnee(2018);
 		seq.setDerniereValeur(new Integer(100));
 		EcritureComptable e= getDaoProxy().getComptabiliteDao().getEcritureComptable(new Integer(-3));
 		String codej= e.getJournal().getCode();
-		dao.insertSequenceEcritureComptable(seq, codej);
+		String code= codej+Integer.toString(1);
+		dao.insertSequenceEcritureComptable(seq, code);
 		Assert.assertTrue(7>3); 	
 	}
 	
 	@Test
 	public void updateSequenceEcritureComptable() throws NotFoundException {
 		SequenceEcritureComptable seq= new SequenceEcritureComptable();
-		seq.setAnnee(2017);
+		seq.setAnnee(2016);
 		seq.setDerniereValeur(new Integer(90));
-		EcritureComptable e= getDaoProxy().getComptabiliteDao().getEcritureComptable(new Integer(-2));
-		String codej= e.getJournal().getCode();
 		dao.updateSequenceEcritureComptable(seq, "OD");
-		Assert.assertTrue(new Integer(41).equals(getDaoProxy().getComptabiliteDao().getDerniereSequence(2017, "VE")));
+		Assert.assertTrue(new Integer(90).equals(getDaoProxy().getComptabiliteDao().getDerniereSequence(2016, "OD")));
 	}
 }
 	
