@@ -316,6 +316,22 @@ public class ComptabiliteDaoImpl extends AbstractDbConsumer implements Comptabil
     }
     
     
+    private static String SQLinsertJournalComptable;
+    public void setSQLinsertJournalComptable(String pSQLinsertJournalCOmptable)
+    {
+    	SQLinsertJournalComptable = pSQLinsertJournalCOmptable;
+    }
+
+  
+    public void insertJournalComptable(String codej, String libelle) {
+    	NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource(DataSourcesEnum.MYERP));
+        MapSqlParameterSource vSqlParams = new MapSqlParameterSource();
+        vSqlParams.addValue("journal_code", codej);
+        vSqlParams.addValue("libelle", libelle);
+        vJdbcTemplate.update(SQLinsertJournalComptable, vSqlParams);
+    }
+    
+    
     private static String SQLupdateSequenceEcritureComptable;
     public void setSQLupdateSequenceEcritureComptable(String pSQLupdateSequenceEcritureCOmptable)
     {

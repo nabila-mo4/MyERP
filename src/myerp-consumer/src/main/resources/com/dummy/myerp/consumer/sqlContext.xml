@@ -113,6 +113,13 @@
                 WHERE  annee = :annee AND journal_code = :journal_code
         	</value>
         </property>
+ 
+        <property name="SQLinsertJournalComptable">
+        	<value>
+        		 INSERT INTO myerp.journal_comptable (journal_code,
+                 libelle) VALUES (:journal_code, :libelle )
+        	</value>
+        </property>
         
         
     </bean>

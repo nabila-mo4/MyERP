@@ -105,29 +105,6 @@ public class ComptabiliteDaoImplTest extends ConsumerTestCase {
 		Assert.assertTrue(ecr.getListLigneEcriture().get(1).getCompteComptable().getNumero().equals(new Integer(512)));	
 	}
 	
-	@Test
-    public void insertEcritureComptable() throws ParseException {
-    	
-		List<EcritureComptable> l = getDaoProxy().getComptabiliteDao().getListEcritureComptable();
-        EcritureComptable e= l.get(l.size()-1);
-        int v = Integer.parseInt(e.getReference().substring(8))+1;
-        SimpleDateFormat formater = new SimpleDateFormat("yyyy");
-		int annee = Integer.parseInt(formater.format(e.getDate()));
-        e.setReference(e.getJournal().getCode()+"-"+annee+"/"+String.format("%05d", v));
-        e.setJournal(new JournalComptable("AC", "Achat"));
-        e.setLibelle("testajoutdao");
-        SimpleDateFormat pattern = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        e.setDate(pattern.parse("2016-12-31 00:00:00"));
-        
-        e.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(401),
-                                                                                 null, new BigDecimal(200),
-                                                                                 null));
-        e.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(411),
-                                                                                 null, null,
-                                                                                 new BigDecimal(200)));
-        dao.insertEcritureComptable(e);
-		Assert.assertNotNull(e.getId());
-        }
 	
 	@Test
     public void updateEcritureComptable() 
@@ -218,7 +195,30 @@ public class ComptabiliteDaoImplTest extends ConsumerTestCase {
 	            }
 	    }
 		
-
+		@Test
+	    public void insertEcritureComptable() throws ParseException {
+	    	
+			List<EcritureComptable> l = getDaoProxy().getComptabiliteDao().getListEcritureComptable();
+	        EcritureComptable e= l.get(l.size()-1);
+	        int v = Integer.parseInt(e.getReference().substring(8))+1;
+	        SimpleDateFormat formater = new SimpleDateFormat("yyyy");
+			int annee = Integer.parseInt(formater.format(e.getDate()));
+	        e.setReference(e.getJournal().getCode()+"-"+annee+"/"+String.format("%05d", v));
+	        e.setJournal(new JournalComptable("AC", "Achat"));
+	        e.setLibelle("testajoutdao");
+	        SimpleDateFormat pattern = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	        e.setDate(pattern.parse("2016-12-31 00:00:00"));
+	        
+	        e.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(401),
+	                                                                                 null, new BigDecimal(200),
+	                                                                                 null));
+	        e.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(411),
+	                                                                                 null, null,
+	                                                                                 new BigDecimal(200)));
+	        dao.insertEcritureComptable(e);
+			Assert.assertNotNull(e.getId());
+	        }
+		
 	
 	
 	@Test
@@ -237,8 +237,9 @@ public class ComptabiliteDaoImplTest extends ConsumerTestCase {
 		seq.setDerniereValeur(new Integer(100+1));
 		EcritureComptable e= getDaoProxy().getComptabiliteDao().getEcritureComptable(new Integer(-3));
 		String codej= e.getJournal().getCode();
-		//String code= codej+Integer.toString(1);
-		dao.insertSequenceEcritureComptable(seq, codej);
+		String code= codej+Integer.toString(1);
+		dao.insertJournalComptable(codej, "testajoutjournaldao");
+		dao.insertSequenceEcritureComptable(seq, code);
 		Assert.assertTrue(7>3); 	
 	}
 	
