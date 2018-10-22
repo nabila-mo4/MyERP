@@ -116,7 +116,7 @@
  
         <property name="SQLinsertJournalComptable">
         	<value>
-        		 INSERT INTO myerp.journal_comptable (journal_code,
+        		 INSERT INTO myerp.journal_comptable (code,
                  libelle) VALUES (:journal_code, :libelle )
         	</value>
         </property>
