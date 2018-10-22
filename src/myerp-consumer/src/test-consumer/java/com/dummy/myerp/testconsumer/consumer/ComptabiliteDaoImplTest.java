@@ -238,7 +238,7 @@ public class ComptabiliteDaoImplTest extends ConsumerTestCase {
 		EcritureComptable e= getDaoProxy().getComptabiliteDao().getEcritureComptable(new Integer(-3));
 		String codej= e.getJournal().getCode();
 		String code= codej+Integer.toString(1);
-		dao.insertJournalComptable(codej, "testajoutjournaldao");
+		dao.insertJournalComptable(code, "testajoutjournaldao");
 		dao.insertSequenceEcritureComptable(seq, code);
 		Assert.assertTrue(7>3); 	
 	}
