@@ -10,7 +10,7 @@ CREATE TABLE MYERP.sequence_ecriture_comptable (
                 journal_code VARCHAR(5) NOT NULL,
                 annee INTEGER NOT NULL,
                 derniere_valeur INTEGER NOT NULL,
-                CONSTRAINT sequence_ecriture_comptable_pk PRIMARY KEY (journal_code, annee)
+                CONSTRAINT sequence_ecriture_comptable_pk PRIMARY KEY (journal_code)
 );
 
 

@@ -234,11 +234,11 @@ public class ComptabiliteDaoImplTest extends ConsumerTestCase {
 		SequenceEcritureComptable seq= new SequenceEcritureComptable();
 		
 		seq.setAnnee(2018);
-		seq.setDerniereValeur(new Integer(100));
+		seq.setDerniereValeur(new Integer(100+1));
 		EcritureComptable e= getDaoProxy().getComptabiliteDao().getEcritureComptable(new Integer(-3));
 		String codej= e.getJournal().getCode();
-		String code= codej+Integer.toString(1);
-		dao.insertSequenceEcritureComptable(seq, code);
+		//String code= codej+Integer.toString(1);
+		dao.insertSequenceEcritureComptable(seq, codej);
 		Assert.assertTrue(7>3); 	
 	}
 	
