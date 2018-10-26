@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -236,12 +237,16 @@ public class ComptabiliteDaoImplTest extends ConsumerTestCase {
 		seq.setAnnee(2018);
 		seq.setDerniereValeur(new Integer(100+1));
 		//EcritureComptable e= getDaoProxy().getComptabiliteDao().getEcritureComptable(new Integer(-3));
-		int index= getDaoProxy().getComptabiliteDao().getListJournalComptable().size()-1;
-		JournalComptable j= getDaoProxy().getComptabiliteDao().getListJournalComptable().get(index);
-		String codej= j.getCode();
-		//String code= codej+Integer.toString(1);
-		//dao.insertJournalComptable(code, "testajoutjournaldao");
-		dao.insertSequenceEcritureComptable(seq, codej);
+		//int index= getDaoProxy().getComptabiliteDao().getListJournalComptable().size()-1;
+		//JournalComptable j= getDaoProxy().getComptabiliteDao().getListJournalComptable().get(index);
+		//String codej= j.getCode();
+		Random r = new Random();
+		Integer rand= r.nextInt(9999);
+		
+		String code= rand.toString();
+		
+		dao.insertJournalComptable(code, "testajoutjournaldao");
+		dao.insertSequenceEcritureComptable(seq, code);
 		Assert.assertTrue(7>3); 	
 	}
 	
