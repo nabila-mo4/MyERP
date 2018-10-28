@@ -386,9 +386,9 @@
                 </plugin>
 				
 				<plugin>
-				  <groupId>org.jacoco</groupId>
-				  <artifactId>jacoco-maven-plugin</artifactId>
-				  <version>0.7.2.201409121644</version>
+						  <groupId>org.jacoco</groupId>
+						    <artifactId>jacoco-maven-plugin</artifactId>
+						    <version>0.8.2</version>
 				  <configuration>
 					<append>true</append>
 				  </configuration>
