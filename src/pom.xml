@@ -96,6 +96,19 @@
         <profile>
             <id>test-consumer</id>
         </profile>
+        
+        <profile>
+	       <id>sonar</id>
+	       <activation>
+	            <activeByDefault>true</activeByDefault>
+	       </activation>
+	       <properties>
+	           <sonar.host.url>
+	                http://localhost:9000
+	           </sonar.host.url>
+	       </properties>
+		</profile>
+		
     </profiles>
 
 
@@ -398,13 +411,7 @@
 						<goal>prepare-agent</goal>
 					  </goals>
 					</execution>
-					<execution>
-					  <id>post-unit-test</id>
-					  <phase>test</phase>
-					  <goals>
-						<goal>report</goal>
-					  </goals>
-					</execution>
+					
 				  </executions>
 				</plugin>
 				
