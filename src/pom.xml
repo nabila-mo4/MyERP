@@ -408,7 +408,13 @@
             <version>3.4.1.1168</version>
         </plugin>
         
-    <plugin>
+       
+      	
+            </plugins>
+        </pluginManagement>
+        
+       <plugins>
+       <plugin>
 	            <groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.8.0</version>
@@ -424,15 +430,8 @@
 						</goals>
 					</execution>
 				</executions>
-		     </plugin>    
-        
-        
-        
-
-
-				
-            </plugins>
-        </pluginManagement>
+		     </plugin> 
+       </plugins>
     </build>
 
 
