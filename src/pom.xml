@@ -400,7 +400,15 @@
                     <version>1.10</version>
                 </plugin>
 				
+				
+				
 				<plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>sonar-maven-plugin</artifactId>
+            <version>3.4.1.1168</version>
+        </plugin>
+        
+    <plugin>
 	            <groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.8.0</version>
@@ -416,13 +424,12 @@
 						</goals>
 					</execution>
 				</executions>
-		     </plugin>
-				
-				<plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>sonar-maven-plugin</artifactId>
-            <version>3.4.1.1168</version>
-        </plugin>
+		     </plugin>    
+        
+        
+        
+
+
 				
             </plugins>
         </pluginManagement>
