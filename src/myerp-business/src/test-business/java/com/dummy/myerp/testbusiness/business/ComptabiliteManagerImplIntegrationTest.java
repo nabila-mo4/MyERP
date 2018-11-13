@@ -49,7 +49,7 @@ public class ComptabiliteManagerImplIntegrationTest extends BusinessTestCase {
         if(ecr.getReference().equals("AC-2016/00001")) {
 	        
         	manager.addReference(ecr);
-	        assertEquals("AC-2016/00002", vEcritureComptable.getReference());
+	        assertEquals("AC-2016/00041", vEcritureComptable.getReference());
         	
         }
         else {
