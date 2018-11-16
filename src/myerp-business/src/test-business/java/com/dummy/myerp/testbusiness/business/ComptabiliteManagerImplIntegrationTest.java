@@ -76,16 +76,15 @@ public class ComptabiliteManagerImplIntegrationTest extends BusinessTestCase {
 	        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(401),
 	        																		 "Facture F110001", null,
 	        																		 new BigDecimal(100)));
-	        //String digit = vEcritureComptable.getReference().substring(8);
+	       
 	        
 	        if(!vEcritureComptable.getReference().equals("AC-2016/00001")) {
 	        EcritureComptable ecr= manager.getEcriture(-1);
 	        String digit = ecr.getReference().substring(8);
 	        int val= Integer.parseInt(digit)+1;
 	        manager.addReference(vEcritureComptable);
-	        //String digit = "AC-2016/00043".substring(8);
-	        
-	        
+	       
+	       
 	        String dynreference = "AC-2016/"+String.format("%05d", val);
 	        assertEquals(dynreference, vEcritureComptable.getReference());
 	    }
@@ -126,16 +125,7 @@ public class ComptabiliteManagerImplIntegrationTest extends BusinessTestCase {
 	            
 	            Assert.assertNotNull(e.getId());
 	            
-	            /*List<EcritureComptable> list= getBusinessProxy().getComptabiliteManager().getListEcritureComptable();
-	            boolean found= false;
-	            for(EcritureComptable e:list) {
-	            	if (e.getReference().equals("VE-2018/00029")) {
-	            		found=true;
-	            	}
-	            }
-	            Assert.assertTrue(found);*/
-	            
-	    	
+	           
 	    }
 	
 	@Test

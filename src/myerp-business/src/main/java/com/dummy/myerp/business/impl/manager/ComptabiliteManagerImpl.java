@@ -59,10 +59,7 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
 	 */
 	// TODO à tester
 	// test integration
-	
-	
-	
-	
+
 	@Override
 	public synchronized void addReference(EcritureComptable pEcritureComptable) {
 		// TODO à implémenter
@@ -83,8 +80,7 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
 		SimpleDateFormat formater = new SimpleDateFormat("yyyy");
 		int annee = Integer.parseInt(formater.format(pEcritureComptable.getDate()));
 		Integer dvaleursequence = getDaoProxy().getComptabiliteDao().getDerniereSequence(annee,
-		pEcritureComptable.getJournal().getCode());//==>40
-		// SELECT dernierevaleur FROM sequence_ecriture_comptable Where annee=annee1
+		pEcritureComptable.getJournal().getCode());
 		int val;
 		if (dvaleursequence == 0) {
 			val = 1;
@@ -114,8 +110,6 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
 						pEcritureComptable.getJournal().getCode());
 
 			}
-			// ecriture compable: reference AC-2016-00041
-			// sequence: annee=2016,denrierevaleur:41,code=AC
 			getTransactionManager().commitMyERP(vTS);
 			vTS = null;
 		}

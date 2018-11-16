@@ -30,7 +30,7 @@ public class ComptabiliteManagerImplTest {
         vEcritureComptable.setJournal(new JournalComptable("AB", "Achat"));
         vEcritureComptable.setDate(new Date());
         vEcritureComptable.setLibelle("Libelle");
-        //vEcritureComptable.setReference("ABb2017ilalanaba");
+        
         
         SimpleDateFormat df = new SimpleDateFormat("yyyy");
         String refYear= df.format(vEcritureComptable.getDate());
@@ -97,7 +97,6 @@ public class ComptabiliteManagerImplTest {
         vEcritureComptable = new EcritureComptable();
         vEcritureComptable.setJournal(new JournalComptable("AC", "Achat"));
         vEcritureComptable.setDate(new Date());
-        //vEcritureComptable.setReference("nabila");
         vEcritureComptable.setLibelle("Libelle");
         vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
                                                                                  null, new BigDecimal(123),
@@ -109,10 +108,6 @@ public class ComptabiliteManagerImplTest {
         String annee1= annee.format(vEcritureComptable.getDate());
         
         vEcritureComptable.setReference("AC"+"-"+annee1+"/00001");
-       
-        //System.out.println(vEcritureComptable.getReference());
-        //if(vEcritureComptable.getReference()==null) {System.out.println("reference nulle");};
-        
        
         manager.checkEcritureComptableUnit(vEcritureComptable);
     }
@@ -134,10 +129,11 @@ public class ComptabiliteManagerImplTest {
         
         String refYear= "2018";
         vEcritureComptable.setReference(vEcritureComptable.getJournal().getCode()+"-"+refYear+"/00001");
+        
         vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
                 null, new BigDecimal(123),
                 null));
-vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(2),
+        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(2),
                 null, null,
                 new BigDecimal(123)));
        
