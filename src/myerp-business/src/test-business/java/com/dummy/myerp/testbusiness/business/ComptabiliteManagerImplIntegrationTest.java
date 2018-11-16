@@ -124,6 +124,8 @@ public class ComptabiliteManagerImplIntegrationTest extends BusinessTestCase {
 				}
 	            
 	            Assert.assertNotNull(e.getId());
+	            Assert.assertNotNull(e.getReference());
+
 	            
 	           
 	    }
