@@ -49,7 +49,8 @@ public class ComptabiliteManagerImplIntegrationTest extends BusinessTestCase {
         if(ecr.getReference().equals("AC-2016/00001")) {
 	        
         	manager.addReference(ecr);
-	        assertEquals("AC-2016/00041", vEcritureComptable.getReference());
+	        assertEquals("AC-2016/00041", manager.getEcriture(-1).getReference());
+	        
         	
         }
         else {
@@ -230,6 +231,10 @@ public class ComptabiliteManagerImplIntegrationTest extends BusinessTestCase {
             manager.deleteEcritureComptable(vEcritureComptable.getId());
             int sizefinal = getBusinessProxy().getComptabiliteManager().getListEcritureComptable().size();
 			Assert.assertEquals(sizeinit, sizefinal);  
+            }
+            
+            else {
+            	assertTrue(6>4);
             }
             }
     }
