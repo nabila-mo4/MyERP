@@ -162,43 +162,6 @@ public class ComptabiliteDaoImplTest extends ConsumerTestCase {
 	        }
 		}
 		
-		//L'ecriture a déjà été supprimée
-		@Test
-	    public void deleteEcritureComptableUnit() throws ParseException, NotFoundException {
-	    	
-	    		EcritureComptable vEcritureComptable;
-	            vEcritureComptable = new EcritureComptable();
-	            vEcritureComptable.setId(new Integer(-4));
-	            vEcritureComptable.setJournal(new JournalComptable("VE", "Vente"));
-	            SimpleDateFormat pattern = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		        vEcritureComptable.setDate(pattern.parse("2016-12-28 00:00:00"));
-	            vEcritureComptable.setLibelle("TMA Appli Yyy"); 
-	            SimpleDateFormat df = new SimpleDateFormat("yyyy");
-		        String refYear= df.format(vEcritureComptable.getDate());
-	            vEcritureComptable.setReference(vEcritureComptable.getJournal().getCode()+"-"+refYear+"/00004");
-	            vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(401),
-	                                                                                     null, new BigDecimal(200),
-	                                                                                     null));
-	            vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(411),
-	                                                                                     null, null,
-	                                                                                     new BigDecimal(200)));
-	            
-	            List<EcritureComptable> list= dao.getListEcritureComptable();
-	            for(EcritureComptable e: list) {
-	            	
-	            if(e.getId()!=new Integer(-4)){
-	            
-	            int sizeinit = getDaoProxy().getComptabiliteDao().getListEcritureComptable().size();
-	            dao.deleteEcritureComptable(vEcritureComptable.getId());
-	            int sizefinal = getDaoProxy().getComptabiliteDao().getListEcritureComptable().size();
-				Assert.assertEquals(sizeinit, sizefinal);  
-	            }
-	            
-	            else {
-	            	assertTrue(6>4);
-	            }
-	            }
-	    }
 		
 		@Test
 	    public void insertEcritureComptable() throws ParseException {
