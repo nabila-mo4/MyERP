@@ -193,6 +193,10 @@ public class ComptabiliteDaoImplTest extends ConsumerTestCase {
 	            int sizefinal = getDaoProxy().getComptabiliteDao().getListEcritureComptable().size();
 				Assert.assertEquals(sizeinit, sizefinal);  
 	            }
+	            
+	            else {
+	            	assertTrue(6>4);
+	            }
 	            }
 	    }
 		
